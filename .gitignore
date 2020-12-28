@@ -1,0 +1,8 @@
+jpeg_images
+jpeg_images/*
+modules/__pycache__
+modules/__pycache__/*
+ascii
+ascii/*
+tests/hello_world.png
+modles/old_jpg2ascii.sh
