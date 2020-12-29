@@ -3,7 +3,7 @@
 This module does the conversion
 of ASCII text files into images
 
-Credits to original author KobeJohn:
+Credits to original authors KobeJohn for the text_image function:
 https://stackoverflow.com/users/377366/kobejohn
 
 '''
@@ -13,14 +13,11 @@ import PIL.Image
 import PIL.ImageFont
 import PIL.ImageOps
 import PIL.ImageDraw
+import cv2
+import numpy as np
 
-PIXEL_ON = 255# PIL color to use for "on"
+PIXEL_ON = 255  # PIL color to use for "on"
 PIXEL_OFF = 0  # PIL color to use for "off"
-
-def main():
-    image = text_image('../tests/hello_world.txt')
-    image.show()
-    image.save('../tests/hello_world.png')
 
 
 def text_image(text_path, font_path=None):
@@ -36,8 +33,9 @@ def text_image(text_path, font_path=None):
         lines = tuple(l.rstrip() for l in text_file.readlines())
 
     # choose a font (you can see more detail in my library on github)
-    large_font = 20 # get better resolution with larger size
-    font_path = font_path or '../tests/anonymous.ttf'  # Courier New. works in windows.
+    large_font = 20  # get better resolution with larger size
+    # Courier New. works in windows.
+    font_path = font_path or '../tests/anonymous.ttf'
     try:
         font = PIL.ImageFont.truetype(font_path, size=large_font)
     except IOError:
@@ -45,7 +43,8 @@ def text_image(text_path, font_path=None):
         print('Could not use chosen font. Using default.')
 
     # make the background image based on the combination of font and lines
-    pt2px = lambda pt: int(round(pt * 96.0 / 72))  # convert points to pixels
+    # convert points to pixels
+    def pt2px(pt): return int(round(pt * 96.0 / 72))
     max_width_line = max(lines, key=lambda s: font.getsize(s)[0])
     # max height is adjusted down because it's too large visually for spacing
     test_string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -64,10 +63,22 @@ def text_image(text_path, font_path=None):
         draw.text((horizontal_position, vertical_position),
                   line, fill=PIXEL_ON, font=font)
         vertical_position += line_spacing
+
     # crop the text
+
     c_box = PIL.ImageOps.invert(image).getbbox()
     image = image.crop(c_box)
+
     return image
+
+
+def main():
+    '''
+    A main function if moduled is called alone.
+    '''
+    image = text_image('../tests/hello_world.txt')
+    image.show()
+    image.save('../tests/hello_world.png')
 
 
 if __name__ == '__main__':

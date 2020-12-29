@@ -49,8 +49,12 @@ def frame_namer(cap, ret, dir_name, frame_count, suffix):
                 str(frame_count) + suffix + ".jpg"
             frame_count = frame_count + 1
             cv2.imwrite(file_name, frame)
-            print("Extracted " + file_name + "...")
+            #print("Extracted " + file_name + "...")
+
+            i = "Extracted" + file_name + "..."
+            print(i, end='\r')
         except:  # pylint: disable=W0702
+            print()
             print("No frame " + file_name + " . Ending extraction.")
             return frame_count - 2
 

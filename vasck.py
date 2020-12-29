@@ -6,6 +6,7 @@ import os
 import argparse
 import shutil
 import subprocess
+import cv2
 
 from modules.vid2jpg import frame_extract
 from modules.colors import BColors as fontc
@@ -20,6 +21,35 @@ def cleanup():
 
     shutil.rmtree("jpeg_images")
     shutil.rmtree("ascii")
+
+
+def png2mp4(vidin):
+    '''
+    Function that converts the sequence of pngs to mp4's.
+    '''
+
+    # Get FPS of inputted bw video.
+    cap = cv2.VideoCapture(vidin)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+
+    image_folder = 'ascii_pngs'
+    video_name = 'final_output.avi'
+
+    # Preparing all variables required to write a video using the f_out frames.
+    images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
+    frame = cv2.imread(os.path.join(image_folder, images[0]))
+    height, width, layers = frame.shape
+    video = cv2.VideoWriter(video_name, cv2.VideoWriter_fourcc(
+        *'XVID'), fps, (width, height))
+
+    # The list is initially unsorted, this is to fix that.
+    images = sorted(images, key=lambda x: int(x[0:-4]))
+
+    for image in images:
+        video.write(cv2.imread(os.path.join(image_folder, image)))
+
+    cv2.destroyAllWindows()
+    video.release()
 
 
 def folders_manager():
@@ -71,7 +101,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "vid_input",
-        help="Any video as input (avi or mp4)")
+        help="Any video as input (avi, mp4, or webm)")
     parser.add_argument(
         "background",
         help="An optional background for the text that will be used \
@@ -100,11 +130,16 @@ def main():
         image = text_image('ascii/'+str(txt_file)+'.txt',
                            'tests/anonymous.ttf')
 
-        print("Saving " + str(txt_file)+'.png ..')
+        i = "Saving " + str(txt_file) + '.png..'
+        print(i, end='\r')
         image.save('ascii_pngs/'+str(txt_file)+'.png')
 
+    print()
     print("Cleaning...")
     cleanup()
+
+    print("Creating video...")
+    png2mp4(user_input.vid_input)
 
 
 if __name__ == "__main__":

@@ -1,1 +1,6 @@
-Requirements still empty
+Requirements still empty.
+
+To do:
+
+Create new Python3 environment. 
+Figure out exactly just what packages are needed to run this.
