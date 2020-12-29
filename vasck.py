@@ -5,10 +5,21 @@ The main module of the vasck package.
 import os
 import argparse
 import shutil
-import cv2
+import subprocess
 
 from modules.vid2jpg import frame_extract
-from modules.colorizer import BColors as fontc
+from modules.colors import BColors as fontc
+from modules.ascii2png import text_image
+
+
+def cleanup():
+    '''
+    Removes all the files required during the operation.
+    Leaves behind the final output.
+    '''
+
+    shutil.rmtree("jpeg_images")
+    shutil.rmtree("ascii")
 
 
 def folders_manager():
@@ -28,6 +39,17 @@ def folders_manager():
         shutil.rmtree('jpeg_images/')
         os.mkdir("jpeg_images")
 
+    if not os.path.isdir("ascii_pngs"):
+        print(
+            fontc.YELLOW + "Creating folder: ascii_pngs. This will contain \
+            the jpegs to be converted to ASCII" +
+            fontc.ENDC)
+        os.mkdir("ascii_pngs")
+    else:
+        print("ascii_pngs directory found. Clearing contents..")
+        shutil.rmtree('ascii_pngs/')
+        os.mkdir("ascii_pngs")
+
 
 def main():
     '''
@@ -36,12 +58,10 @@ def main():
     Resposibilities:
         - Check that the inputs are valid.
         - Call upon the modules jpg2ascii.py and vid2jpg.py
-        -
     '''
 
-    # What are the arguments?
-    # Input video, size percentage compared to original video.
-    # Third argument will be for background.
+    # First argument will be vid input
+    # Second argument will be for background.
     # If not provided, text will be white against black background.
 
     # Once the input is determined to be valid
@@ -52,12 +72,6 @@ def main():
     parser.add_argument(
         "vid_input",
         help="Any video as input (avi or mp4)")
-    parser.add_argument(
-        "vsize_perc",
-        help="The output GIF's size (in percentage) relative to \
-        the orginal input. (i.e. 40 will make the gif) forty percent \
-        of the original video size). \
-        \nPut 100 for default size.")
     parser.add_argument(
         "background",
         help="An optional background for the text that will be used \
@@ -76,6 +90,21 @@ def main():
         "Jpeg images counted: " +
         fontc.ENDC +
         str(jpeg_images_count))
+
+    subprocess.run("modules/jpg2ascii.sh")
+
+    for txt_file in range(jpeg_images_count):
+        # text images retuns an image, and its second
+        # parameter is for the font.
+        # You have to save it from here.
+        image = text_image('ascii/'+str(txt_file)+'.txt',
+                           'tests/anonymous.ttf')
+
+        print("Saving " + str(txt_file)+'.png ..')
+        image.save('ascii_pngs/'+str(txt_file)+'.png')
+
+    print("Cleaning...")
+    cleanup()
 
 
 if __name__ == "__main__":
