@@ -15,6 +15,20 @@ Output:
 
 <img src="https://im6.ezgif.com/tmp/ezgif-6-01e20f39bf34.gif" width="480" height="270">
 
+
+## Installation
+
+Download the repository:
+
+```bash
+git clone https://github.com/JohannSuarez/vasck.git
+```
+
+Once inside vasck directory, install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
 To do list:
 
   Finish this README.
@@ -24,5 +38,5 @@ To do list:
 Special Thanks to:
 
 	Christian Stigen Larsen - Creator of the jp2a utility.
-	Mark Simonson - Creator the Anonymous monospace typeface. 
+	Mark Simonson - Creator of the Anonymous monospace typeface. 
 	KobeJohn - For the Text to Image function
