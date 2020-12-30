@@ -1,5 +1,17 @@
 # vasck
-A program that converts videos into grayscale ASCII. The ASCII may also be used as a mask against a background image for more aesthetic results.
+
+Convert videos into grayscale ASCII. The ASCII may also be used as a mask against a background image for more aesthetic results. 
+The program can take mp4, avi, and webm. It's basically a wrapper for jp2a that extends its use for videos. 
+
+Demonstration:
+
+Input:
+<img src="https://images2.imgbox.com/1b/48/FYTBvvT6_o.gif" width="480" height="270">
+
+
+
+Output:
+<img src="https://images2.imgbox.com/9a/a2/D80xn3im_o.gif" width="480" height="270">
 
 To do list:
 

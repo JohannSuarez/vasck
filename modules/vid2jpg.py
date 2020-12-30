@@ -51,7 +51,7 @@ def frame_namer(cap, ret, dir_name, frame_count, suffix):
             cv2.imwrite(file_name, frame)
             #print("Extracted " + file_name + "...")
 
-            i = "Extracted" + file_name + "..."
+            i = "Extracted " + file_name + "..."
             print(i, end='\r')
         except:  # pylint: disable=W0702
             print()

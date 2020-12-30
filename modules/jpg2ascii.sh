@@ -38,7 +38,7 @@ for item in jpeg_images/*.jpg ; do
   stripped_text_name=${txt_name##*/}
   folder="ascii/${stripped_text_name}.txt"
   echo "Output name is ${folder}"
-  jp2a ${item} > ${folder}
+  jp2a --size=158x47 ${item} > ${folder}
 
 done
   

@@ -5,4 +5,6 @@ modules/__pycache__/*
 ascii
 ascii/*
 tests/hello_world.png
-modles/old_jpg2ascii.sh
+modules/old_jpg2ascii.sh
+ascii_pngs/
+ascii_pngs/*
