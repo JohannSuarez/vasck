@@ -6,12 +6,12 @@ The program can take mp4, avi, and webm. It's basically a wrapper for jp2a that 
 Demonstration:
 
 Input:
-<img src="https://images2.imgbox.com/1b/48/FYTBvvT6_o.gif" width="480" height="270">
+<img src="https://im6.ezgif.com/tmp/ezgif-6-3a205e365efe.gif" width="480" height="270">
 
 
 
 Output:
-<img src="https://images2.imgbox.com/9a/a2/D80xn3im_o.gif" width="480" height="270">
+<img src="https://im6.ezgif.com/tmp/ezgif-6-01e20f39bf34.gif" width="480" height="270">
 
 To do list:
 
