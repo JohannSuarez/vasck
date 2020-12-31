@@ -7,13 +7,13 @@ Demonstration:
 
 Input:
 
-<img src="https://im6.ezgif.com/tmp/ezgif-6-3a205e365efe.gif" width="480" height="270">
+<img src="img/input.gif" width="480" height="270">
 
 
 
 Output:
 
-<img src="https://im6.ezgif.com/tmp/ezgif-6-01e20f39bf34.gif" width="480" height="270">
+<img src="img/output.gif" width="480" height="270">
 
 
 ## Installation
